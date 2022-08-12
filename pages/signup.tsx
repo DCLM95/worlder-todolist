@@ -75,14 +75,15 @@ const Home: NextPage = () => {
           handleActionOne={handleRegister}
           handleActionTwo={handleLogin}
           error={error && <h2 style={{ color: "red" }}>{error}</h2>}
+          firebaseError={
+            registerError && (
+              <p className="items-center text-white">
+                Error: Invalid Email or Password, Password must be at LEAST 6
+                characters long.
+              </p>
+            )
+          }
         />
-
-        {registerError && (
-          <p className="items-center text-white">
-            Error: Invalid Email or Password, Password must be at LEAST 6
-            characters long.
-          </p>
-        )}
       </div>
     </div>
   );

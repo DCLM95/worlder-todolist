@@ -68,12 +68,14 @@ const Home: NextPage = () => {
           handleActionOne={handleLogin}
           handleActionTwo={handleRegister}
           error={error && <h2 style={{ color: "red" }}>{error}</h2>}
+          firebaseError={
+            signInError && (
+              <p className="items-center text-white">
+                Error: Invalid Email or Password
+              </p>
+            )
+          }
         />
-        {signInError && (
-          <p className="items-center text-white">
-            Error: Invalid Email or Password
-          </p>
-        )}
       </div>
     </div>
   );

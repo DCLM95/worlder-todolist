@@ -45,6 +45,7 @@ function Dashboard(props: any) {
           {props.actionTwo}
         </button>
       </div>
+      <div>{props.firebaseError}</div>
     </div>
   );
 }
