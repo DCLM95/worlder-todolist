@@ -46,7 +46,7 @@ function Dashboard(props: any) {
           {props.actionTwo}
         </button>
       </div>
-      <div className="text-sm w-64 sm:w-full">{props.firebaseError}</div>
+      <div className="px-10">{props.firebaseError}</div>
     </div>
   );
 }
