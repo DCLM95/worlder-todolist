@@ -36,6 +36,7 @@ function Dashboard(props: any) {
         </button>
         <div>{props.error}</div>
       </div>
+
       <div className="flex space-x-3 items-center">
         <h1 className="text-lg text-white">{props.condition}</h1>
         <button
@@ -45,7 +46,7 @@ function Dashboard(props: any) {
           {props.actionTwo}
         </button>
       </div>
-      <div>{props.firebaseError}</div>
+      <div className="text-sm w-64 sm:w-full">{props.firebaseError}</div>
     </div>
   );
 }
