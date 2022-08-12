@@ -104,7 +104,7 @@ function Dashboard() {
         <div className="flex w-full items-center">
           <Header />
         </div>
-        <div className="flex flex-col max-h-screen items-center space-y-5 bg-slate-300  rounded-lg shadow-2xl shadow-slate-800 px-10 py-10 w-80 content-start overflow-y-scroll scrollbar-thin scrollbar-thumb-yellow-100">
+        <div className="flex flex-col max-h-screen items-center space-y-5 bg-slate-300  rounded-lg shadow-2xl shadow-slate-800 px-10 py-10 w-80 content-start overflow-y-scroll overflow-x- scrollbar-thin scrollbar-thumb-yellow-100">
           <input
             className="mt-1 block w-full px-3 py-2 bg-white border text-black border-slate-300 rounded-md text-sm shadow-sm placeholder-black ring-1 ring-black"
             type="text"
@@ -129,9 +129,9 @@ function Dashboard() {
               }
             }}
           ></input>
-          <div className="flex items-center space-x-5">
+          <div className="flex items-center space-x-5 w-full">
             <input
-              className="mt-1 block felx-1 px-3 py-2 bg-white border text-black border-slate-300 rounded-md text-sm shadow-sm  placeholder-black ring-1 ring-black"
+              className="mt-1 block flex-1 px-3 py-2 bg-white border text-black border-slate-300 rounded-md text-sm shadow-sm  placeholder-black ring-1 ring-black"
               type="text"
               placeholder="Search Todo.."
               autoComplete="off"
@@ -140,12 +140,14 @@ function Dashboard() {
                 setSearchTodos(e.target.value);
               }}
             />
-            <XCircleIcon
-              onClick={() => {
-                setSearchTodos("");
-              }}
-              className="w-9 h-9 cursor-pointer hover:scale-105 hover:text-red-600"
-            />
+            {!!searchTodos && (
+              <XCircleIcon
+                onClick={() => {
+                  setSearchTodos("");
+                }}
+                className="w-9 h-9 cursor-pointer hover:scale-105 hover:text-red-600"
+              />
+            )}
           </div>
 
           {userTodos?.map((todo: any) => (
