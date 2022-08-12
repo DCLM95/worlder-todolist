@@ -10,6 +10,7 @@ import { Incomplete, Obj } from "../typings";
 import { TrashIcon } from "@heroicons/react/outline";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { XCircleIcon } from "@heroicons/react/solid";
 
 interface Props {
   incomplete: [Incomplete];
@@ -128,22 +129,30 @@ function Dashboard() {
               }
             }}
           ></input>
-          <input
-            className="mt-1 block w-full px-3 py-2 bg-white border text-black border-slate-300 rounded-md text-sm shadow-sm  placeholder-black ring-1 ring-black"
-            type="text"
-            placeholder="Search Todo.."
-            autoComplete="off"
-            value={searchTodos}
-            onChange={(e) => {
-              setSearchTodos(e.target.value);
-            }}
-          />
+          <div className="flex items-center space-x-5">
+            <input
+              className="mt-1 block felx-1 px-3 py-2 bg-white border text-black border-slate-300 rounded-md text-sm shadow-sm  placeholder-black ring-1 ring-black"
+              type="text"
+              placeholder="Search Todo.."
+              autoComplete="off"
+              value={searchTodos}
+              onChange={(e) => {
+                setSearchTodos(e.target.value);
+              }}
+            />
+            <XCircleIcon
+              onClick={() => {
+                setSearchTodos("");
+              }}
+              className="w-9 h-9 cursor-pointer hover:scale-105 hover:text-red-600"
+            />
+          </div>
 
           {userTodos?.map((todo: any) => (
             <div className="flex items-center space-x-2" key={todo.id}>
               <div
                 onClick={handleClick}
-                className="todo mt-1  block w-48 px-3 py-2 bg-slate-500 text-white border border-slate-300 rounded-md text-md shadow-sm placeholder-slate-400 cursor-pointer break-words hover:scale-105"
+                className="todo mt-1  block w-48 px-3 py-2 bg-slate-500 text-white border border-slate-300 rounded-md text-md shadow-sm placeholder-slate-400 cursor-pointer break-words hover:scale-105 "
               >
                 {todo.title}
               </div>
@@ -154,7 +163,7 @@ function Dashboard() {
                       doc(db, `users/${currentUser?.uid}/todos`, todo.id)
                     );
                   }}
-                  className="w-6 h-6 cursor-pointer hover:bg-red-600 hover: rounded-full hover:color-red-600"
+                  className="w-6 h-6 cursor-pointer  hover: rounded-full hover:text-red-600 hover:scale-105"
                 />
               </div>
             </div>
