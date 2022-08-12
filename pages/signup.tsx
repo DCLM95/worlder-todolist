@@ -79,7 +79,8 @@ const Home: NextPage = () => {
 
         {registerError && (
           <p className="items-center text-white">
-            Error: Invalid Email or Password
+            Error: Invalid Email or Password, Password must be at LEAST 6
+            characters long.
           </p>
         )}
       </div>
