@@ -2,9 +2,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Form from "../components/Form";
 import { useState } from "react";
-import Router, { useRouter } from "next/router";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/router";
 import {
   useAuthState,
+  useCreateUserWithEmailAndPassword,
   useSignInWithEmailAndPassword,
 } from "react-firebase-hooks/auth";
 import { auth } from "../config/firebase";
@@ -14,8 +16,12 @@ const Home: NextPage = () => {
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const [signInWithEmailAndPassword, signInUser, signInLoading, signInError] =
-    useSignInWithEmailAndPassword(auth);
+  const [
+    createUserWithEmailAndPassword,
+    registerUser,
+    registerLoadding,
+    registerError,
+  ] = useCreateUserWithEmailAndPassword(auth);
   const [registeredUser, registeredUserLoading, registeredUserError] =
     useAuthState(auth);
 
@@ -29,6 +35,7 @@ const Home: NextPage = () => {
     } else {
       setError("");
     }
+
     setEmail(e.target.value);
   };
 
@@ -36,15 +43,15 @@ const Home: NextPage = () => {
     setPassword(e.target.value);
   };
 
-  const handleLogin = () => {
-    signInWithEmailAndPassword(email, password);
-  };
-
   const handleRegister = () => {
-    router.push("/signup");
+    createUserWithEmailAndPassword(email, password);
   };
 
-  if (registeredUser && !registeredUserLoading) {
+  const handleLogin = () => {
+    router.push("/");
+  };
+
+  if (!registeredUserLoading && registeredUser) {
     router.push("/dashboard");
   }
 
@@ -57,19 +64,20 @@ const Home: NextPage = () => {
       </Head>
       <div className="bg-black h-screen flex flex-col items-center">
         <Form
-          type="LOGIN"
-          actionOne="Log in"
-          actionTwo="Register Now!"
-          condition="Not a member yet?"
+          type="REGISTER"
+          actionOne="Register"
+          actionTwo="Login here!"
+          condition="Already a member?"
           emailValue={email}
           passwordValue={password}
           handleEmailChange={handleEmailChange}
           handlePasswordChange={handlePasswordChange}
-          handleActionOne={handleLogin}
-          handleActionTwo={handleRegister}
+          handleActionOne={handleRegister}
+          handleActionTwo={handleLogin}
           error={error && <h2 style={{ color: "red" }}>{error}</h2>}
         />
-        {signInError && (
+
+        {registerError && (
           <p className="items-center text-white">
             Error: Invalid Email or Password
           </p>
