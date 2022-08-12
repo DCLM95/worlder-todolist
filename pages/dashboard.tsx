@@ -1,20 +1,14 @@
-import { signOut } from "firebase/auth";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { auth } from "../config/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, addDoc, query, deleteDoc, doc } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { Incomplete, Obj } from "../typings";
+import { Incomplete } from "../typings";
 import { TrashIcon } from "@heroicons/react/outline";
-import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { XCircleIcon } from "@heroicons/react/solid";
-
-interface Props {
-  incomplete: [Incomplete];
-}
 
 function Dashboard() {
   const [todo, setTodo] = useState("");
@@ -68,14 +62,6 @@ function Dashboard() {
     }
   }, [currentUser]);
 
-  // if (currentUserLoading || retrievedLoading) {
-  //   return (
-  //     <div className="flex h-screen bg-slate-700">
-  //       <p className="m-auto">Loading...</p>
-  //     </div>
-  //   );
-  // }
-
   const handleClick = (event: any) => {
     if (event.target.style.textDecoration) {
       event.target.style.removeProperty("text-decoration");
@@ -87,16 +73,6 @@ function Dashboard() {
       event.target.style.setProperty("color", "black");
     }
   };
-
-  // LOGIC BEHIND FILTERING
-  // const handleSearch = (e: any) => {
-  //   setSearchTodos(e.target.value);
-  //   const filtered = userTodos?.filter((todo: any) => {
-  //     return todo.title.toLowerCase().includes(searchTodos);
-  //   });
-  //   setUserTodos(filtered);
-  //   console.log(filtered);
-  // };
 
   if (!retrievedLoading && !currentUserLoading) {
     return (
